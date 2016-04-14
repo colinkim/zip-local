@@ -26,6 +26,8 @@ describe("Unzipping asynchronously", function () {
         expect(localMemory.T1ZippedFS.read("hello/says-hello", 'text')).to.equal("Hello") &&
         expect(localMemory.T1ZippedFS.contents()).to.include("hello/world/says-world") &&
         expect(localMemory.T1ZippedFS.read("hello/world/says-world", 'text')).to.equal("World");
+        expect(localMemory.T1ZippedFS.contents()).to.include("hello/world/deep/deeper");
+        expect(localMemory.T1ZippedFS.read("hello/world/deep/deeper", 'text')).to.equal("THAT'S DEEP");
     });
 
     it("should unzip a .zip file to disk without errors", function (done) {
@@ -62,7 +64,14 @@ describe("Unzipping asynchronously", function () {
 
                 expect(world_data).to.equal("World");
 
-                done();
+                fs.readFile("./tests/assets/hello-async-unzip/hello/world/deep/deeper", 'utf8', function(err, deeper_data) {
+                    if(err)
+                        throw err;
+
+                    expect(deeper_data).to.equal("THAT'S DEEP");
+
+                    done();
+                });
             });
         });
     });
