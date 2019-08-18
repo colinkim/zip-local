@@ -10,7 +10,7 @@ describe("Zipping directories asynchronously", function () {
     /* Test 1: zips a directory in memory without errors */
     it("should zip a directory in memory without errors", function (done) {
 
-        zipper.zip("./tests/assets/hello", function (error, zipped) {
+        zipper.zip("./assets/hello", function (error, zipped) {
 
             expect(error).to.equal(null);
 
@@ -36,16 +36,16 @@ describe("Zipping directories asynchronously", function () {
     /* Test 3: zips a directory to disk without errors */
     it("should zip a directory to disk without errors", function (done) {
 
-        zipper.zip("./tests/assets/hello", function (error, zipped) {
+        zipper.zip("./assets/hello", function (error, zipped) {
 
             expect(error).to.equal(null);
 
-            zipped.save("./tests/assets/dirs.async.T3Pack.zip", function (error) {
+            zipped.save("./assets/dirs.async.T3Pack.zip", function (error) {
 
                 expect(error).to.equal(null);
 
                 // make sure that the file exists on disk
-                fs.readdir("./tests/assets/", function (err, entries) {
+                fs.readdir("./assets/", function (err, entries) {
 
                     expect(entries).to.include('dirs.async.T3Pack.zip');
 
@@ -58,7 +58,7 @@ describe("Zipping directories asynchronously", function () {
     /* Test 4: making sure that the zipped file from Test 3 contains correct data */
     it("checks if the zipped file contains correct data (using JSZip)", function (done) {
 
-        fs.readFile("./tests/assets/dirs.async.T3Pack.zip", function (err, data) {
+        fs.readFile("./assets/dirs.async.T3Pack.zip", function (err, data) {
 
             var zipped = JSZip.make(data);
 

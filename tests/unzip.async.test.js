@@ -10,7 +10,7 @@ describe("Unzipping asynchronously", function () {
 
     it("should unzip a .zip file in memory without errors", function (done) {
 
-        zipper.unzip("./tests/assets/hello.zip", function (error, unzipped) {
+        zipper.unzip("./assets/hello.zip", function (error, unzipped) {
 
             expect(error).to.equal(null);
 
@@ -30,15 +30,15 @@ describe("Unzipping asynchronously", function () {
 
     it("should unzip a .zip file to disk without errors", function (done) {
 
-        zipper.unzip("./tests/assets/hello.zip", function (error, unzipped) {
+        zipper.unzip("./assets/hello.zip", function (error, unzipped) {
 
             expect(error).to.equal(null);
 
-            fs.mkdir("./tests/assets/hello-async-unzip", function (err) {
+            fs.mkdir("./assets/hello-async-unzip", function (err) {
                 if (err)
                     throw err;
 
-                unzipped.save("./tests/assets/hello-async-unzip/", function (error) {
+                unzipped.save("./assets/hello-async-unzip/", function (error) {
                     expect(error).to.equal(null);
                     done();
                 });
@@ -48,14 +48,14 @@ describe("Unzipping asynchronously", function () {
 
     it("should check if unzipped files on disk contain correct data", function (done) {
 
-        fs.readFile("./tests/assets/hello-async-unzip/hello/says-hello", 'utf8', function (err, data) {
+        fs.readFile("./assets/hello-async-unzip/hello/says-hello", 'utf8', function (err, data) {
 
             if (err)
                 throw err;
 
             expect(data).to.equal("Hello");
 
-            fs.readFile("./tests/assets/hello-async-unzip/hello/world/says-world", 'utf8', function (err, world_data) {
+            fs.readFile("./assets/hello-async-unzip/hello/world/says-world", 'utf8', function (err, world_data) {
 
                 if (err)
                     throw err;
@@ -69,7 +69,7 @@ describe("Unzipping asynchronously", function () {
 
     it("unzips a file directly from the buffer containing it", function (done) {
 
-        var buff = fs.readFileSync("./tests/assets/hello.zip");
+        var buff = fs.readFileSync("./assets/hello.zip");
 
         zipper.unzip(buff, function (error, unzipped) {
 
@@ -90,10 +90,10 @@ describe("Unzipping asynchronously", function () {
     });
 
     it("uses existing folders without throwing EEXIST error", function(done) {
-        zipper.unzip("./tests/assets/hello.zip", function(error, unzipped) {
+        zipper.unzip("./assets/hello.zip", function(error, unzipped) {
             expect(error).to.be.null;
 
-            unzipped.save("./tests/assets/hello-unzip-exists", function(error) {
+            unzipped.save("./assets/hello-unzip-exists", function(error) {
                 expect(error).to.be.null;
                 done();
             });

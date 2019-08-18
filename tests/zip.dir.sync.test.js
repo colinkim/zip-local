@@ -10,7 +10,7 @@ describe("Zipping directories synchronously", function () {
     /* Test 1: zips a directory in memory without errors */
     it("should zip a directory in memory without errors", function () {
         
-        localMemory.T1ZippedBuffer = zipper.sync.zip("./tests/assets/hello").memory();
+        localMemory.T1ZippedBuffer = zipper.sync.zip("./assets/hello").memory();
     });
     
     /* Test 2: making sure that the zipped buffer from Test 1 contains correct data */
@@ -29,10 +29,10 @@ describe("Zipping directories synchronously", function () {
     /* Test 3: zips a directory to disk without errors */
     it("should zip a directory to disk without errors", function () {
         
-        zipper.sync.zip("./tests/assets/hello").save("./tests/assets/dirs.sync.T3Pack.zip");
+        zipper.sync.zip("./assets/hello").save("./assets/dirs.sync.T3Pack.zip");
         
         // make sure the file exists
-        var entries = fs.readdirSync("./tests/assets/");
+        var entries = fs.readdirSync("./assets/");
         
         expect(entries).to.include("dirs.sync.T3Pack.zip");
     });
@@ -40,7 +40,7 @@ describe("Zipping directories synchronously", function () {
     /* Test 4: making sure that the zipped file from Test 3 contains correct data */
     it("checks if the zipped file contains correct data (using JSZip)", function (done) {
         
-        fs.readFile("./tests/assets/dirs.sync.T3Pack.zip", function (err, data) {
+        fs.readFile("./assets/dirs.sync.T3Pack.zip", function (err, data) {
             
             var zipped = JSZip.make(data);
             
