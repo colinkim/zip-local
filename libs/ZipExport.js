@@ -245,7 +245,9 @@ ZipExport.prototype.memory = function() {
             compression: this.compressed ? "DEFLATE" : undefined
         });
 
-        return new Buffer(buff);
+        //return new Buffer(buff);
+        //kimcy
+        return new Buffer.from(buff);
     }
     else {
 
